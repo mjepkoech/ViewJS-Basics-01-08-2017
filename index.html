@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue@2.4.2"></script>
+    <title>My first vue app</title>
+    <style>
+        body {
+            margin: 50px;
+            padding: 50px;
+            border-style: solid;
+            border-width: 2px;
+            background-color: lightskyblue;
+        }
+        .registration{
+            background: yellow;
+        }
+        }
+    </style>
+</head>
+
+<body>
+
+<body>
+<div id="main"></div>
+
+<h2>Hobbies</h2>
+<div id="root1">
+    <ul>
+        <li v-for="passion in passions" v-text="passion"></li>
+    </ul>
+    <input id="input" type="text" v-model="newPassion">
+    <button @click="addPassion" :class="{'registration': true}">Add Hobby</button>
+</div>
+<div id="root">
+    <h2>Skills</h2>
+    <ul>
+        <li v-for="skill in skills" v-text="skill.description"></li>
+    </ul>
+
+    <h2>Talents</h2>
+    <ul>
+        <li v-for="skill in talentSkill" v-text="skill.description"></li>
+    </ul>
+    Liked my profile?
+    <h1 v-if="ok">Yes</h1>
+    <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+
+</div>
+
+<script>
+    var app;
+    app = new Vue({
+        el: '#root',
+
+        data: {
+            skills: [
+                {description: 'Programming', talent: true},
+                {description: 'Blogging', talent: false},
+                {description: 'Web Design', talent: true},
+                {description: 'Networking', talent: false}
+            ]
+        },
+
+        computed: {
+            talentSkill: function() {
+                return this.skills.filter(skill => skill.talent);
+            }
+        },
+    });
+
+    var app;
+    app = new Vue({
+        el: '#root1',
+
+        data: {
+            newPassion: '',
+            passions: ['Playing Piano', 'Coding', 'Skating']
+        },
+        className: 'registration',
+        methods: {
+            addPassion: function() {
+                this.passions.push(this.newPassion);
+                this.newPassion = '';
+                alert('Hobby Added');
+            }
+        }
+    })
+
+    new Vue({
+        el: "#main",
+        template: '<div v-if="name"><span v-text="name"></span></div>',
+        data: {
+            name: "Author: Millie"
+        }
+    });
+
+    console.log(document.body.innerHTML);
+</script>
+
+</body>
+</html>
